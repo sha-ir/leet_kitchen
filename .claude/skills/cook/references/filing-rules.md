@@ -24,7 +24,7 @@ Frontmatter mapping:
 | `confidence` | 0–5 per section 3 |
 | `time_spent_min` | the number the user gave |
 | `mistakes` | the mistake text, or `- "[[Mistake - <Name>]]"` if promoted (section 5) |
-| `tags` | `station/dish`, `recipe/<slug>`, `difficulty/<level>` (slug = recipe name lowercased, spaces -> hyphens) |
+| `tags` | `station/dish`, `recipe/<slug>`, `difficulty/<level>` (slug = the recipe card's `pattern` field, lowercased, spaces -> hyphens, e.g. `Sliding Window` -> `sliding-window`) |
 
 Body sections (from the template), filled with the **agreed/correct** content: Problem (link), Ingredient scan, Recognition sentence, Confusable recipes, Recipe, Invariant / taste test, Plan before code, Code, Tests and edge cases, Common mistake, Review prompt.
 

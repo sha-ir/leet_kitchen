@@ -1,0 +1,22 @@
+{
+	"nodes":[
+		{"id":"start","type":"file","file":"START HERE.md","x":0,"y":0,"width":280,"height":160},
+		{"id":"home","type":"file","file":"00 - Kitchen Home/Cookbook Home.md","x":320,"y":0,"width":280,"height":160},
+		{"id":"ingredients","type":"file","file":"01 - Pantry - Ingredients/Master Recipe Table.md","x":680,"y":-220,"width":280,"height":160},
+		{"id":"recipes","type":"file","file":"02 - Recipe Cards - Patterns/Recipe Index.md","x":680,"y":0,"width":280,"height":160},
+		{"id":"problems","type":"file","file":"03 - Dishes - Problems/Problem Cards Index.md","x":680,"y":220,"width":280,"height":160},
+		{"id":"meal","type":"file","file":"04 - Meal Plans - Practice/Daily Consumption Plan.md","x":1040,"y":-120,"width":280,"height":160},
+		{"id":"review","type":"file","file":"05 - Tasting Room - Review/Recognition Drills.md","x":1040,"y":120,"width":280,"height":160},
+		{"id":"dash","type":"file","file":"07 - Dashboards/Pattern Dashboard.md","x":1360,"y":0,"width":280,"height":160}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"start","fromSide":"right","toNode":"home","toSide":"left"},
+		{"id":"e2","fromNode":"home","fromSide":"right","toNode":"ingredients","toSide":"left"},
+		{"id":"e3","fromNode":"home","fromSide":"right","toNode":"recipes","toSide":"left"},
+		{"id":"e4","fromNode":"home","fromSide":"right","toNode":"problems","toSide":"left"},
+		{"id":"e5","fromNode":"recipes","fromSide":"right","toNode":"meal","toSide":"left"},
+		{"id":"e6","fromNode":"problems","fromSide":"right","toNode":"review","toSide":"left"},
+		{"id":"e7","fromNode":"review","fromSide":"right","toNode":"dash","toSide":"left"},
+		{"id":"e8","fromNode":"meal","fromSide":"right","toNode":"dash","toSide":"left"}
+	]
+}

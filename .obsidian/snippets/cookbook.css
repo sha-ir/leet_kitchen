@@ -1,0 +1,10 @@
+/* Optional: enable this snippet in Obsidian Appearance settings. */
+.callout[data-callout="recipe"] {
+  --callout-icon: lucide-utensils;
+}
+.callout[data-callout="taste-test"] {
+  --callout-icon: lucide-search-check;
+}
+.callout[data-callout="mistake"] {
+  --callout-icon: lucide-alert-triangle;
+}

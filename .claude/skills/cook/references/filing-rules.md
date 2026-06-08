@@ -1,6 +1,6 @@
-# Filing rules (used at gates 4, 10, 11, 12)
+# Filing rules (used at steps 3, 7, 8)
 
-All writes happen at gate 12 after the user approves the preview. Resolve folders by numeric prefix with `Glob`. Use today's date for date fields, formatted `YYYY-MM-DD`.
+All writes happen at step 8 after the user approves the preview. Resolve folders by numeric prefix with `Glob`. Use today's date for date fields, formatted `YYYY-MM-DD`.
 
 ## 1. Dish card -> `03 - Dishes - Problems/LC<NNNN> - <Title>.md`
 
@@ -18,7 +18,7 @@ Frontmatter mapping:
 | `status` | `solved`, or `unsolved` if abandoned |
 | `patterns` | `- "[[<Recipe>]]"` (the confirmed recipe; multiple allowed) |
 | `dish` | the recipe's food-memory name (from the recipe card / Recipe Index) |
-| `ingredient_tags` | lowercase hyphenated tags from the gate-2 scan (e.g. `contiguous`, `no-duplicates`, `longest`) |
+| `ingredient_tags` | lowercase hyphenated tags from the step-2 scan (e.g. `contiguous`, `no-duplicates`, `longest`) |
 | `solved_on` | today's date |
 | `review_due` | per section 4 |
 | `confidence` | 0–5 per section 3 |
@@ -38,10 +38,10 @@ Append one line under the `## Manual index` heading:
 ## 3. Scoring (confidence 0–5) — propose, the user can override
 
 - Start at 5.
-- Recipe guess (gate 4) wrong -> cap the score at **2**.
-- −1 for a wrong invariant (gate 6).
+- Recipe guess (step 3) wrong -> cap the score at **2**.
+- −1 for a wrong invariant (step 4).
 - −1 for buggy code (mode A: did not work / needed the reference; mode B: had a real bug).
-- −1 for badly-incomplete edge cases (gate 9).
+- −1 for badly-incomplete edge cases (step 6).
 - Floor at 0.
 
 ## 4. Review cadence -> set `review_due` (do NOT edit the Spaced Review Queue file)
@@ -53,12 +53,12 @@ Anchor on `solved_on`:
 
 The Review Dashboard surfaces due cards from this property; the Spaced Review Queue note is a fixed cadence reference, not a per-card list.
 
-## 5. Mistakes (gate 10) — follow the vault rule
+## 5. Mistakes (step 7) — follow the vault rule
 
 - **First occurrence:** add `- [ ] <mistake>` under the matching recipe heading in `05 - Tasting Room - Review/Mistake Pantry.md`. Set the dish card `mistakes` to the mistake text. If the recipe has no section yet in the Pantry, add `## <Recipe>` then the checkbox.
 - **Recurrence** (the same or very similar mistake already listed under that recipe): promote to `05 - Tasting Room - Review/Mistake - <Short Name>.md` from `06 - Templates/Template - Mistake Note.md` (`pattern: "[[<Recipe>]]"`, `first_seen` = the earlier date if known else today, `last_seen` = today, `review_due` = +1 day). Link it from the dish card `mistakes` (`- "[[Mistake - <Short Name>]]"`) and add a link under the Pantry checkbox.
 
-## 6. New recipe (only if gate 4 found no fit)
+## 6. New recipe (only if step 3 found no fit)
 
 - Create `02 - Recipe Cards - Patterns/<Food-Native Name>.md` from `06 - Templates/Template - Recipe Card.md`: fill `pattern`, `dish`, `food_memory`, `ingredient_signals`, the recognition sentence, the mental recipe, the invariant, and a core template from the session. Set `status: draft`.
 - Append to `02 - Recipe Cards - Patterns/Recipe Index.md`: `- [[<Food-Native Name>]] — <food memory>`.

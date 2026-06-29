@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Grand Menu de Mémoire · 2026-06-28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Caveat:wght@500;700&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1c130b;
+    --bg-2:#241810;
+    --paper:#2b1d11;
+    --cream:#f4e8cf;
+    --cream-dim:#cdb997;
+    --gold:#d9a441;
+    --gold-soft:#e7c27a;
+    --ink:#0e0905;
+    /* course accents */
+    --amber:#e8852b;
+    --amber-glow:#ffb45a;
+    --sage:#8aa05a;
+    --sage-glow:#c4d68a;
+    --ember:#c8462f;
+    --ember-glow:#ff7e54;
+    --course:var(--gold);
+    --course-glow:var(--gold-soft);
+    --rule:rgba(217,164,65,.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(232,133,43,.10), transparent 60%),
+      radial-gradient(80% 60% at 90% 110%, rgba(200,70,47,.12), transparent 60%),
+      linear-gradient(160deg,var(--bg),var(--bg-2));
+    color:var(--cream);
+    font-family:"Spectral",Georgia,serif;
+    line-height:1.6;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  /* grain overlay */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:20;
+    display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;
+    padding:.7rem 1rem;
+    background:linear-gradient(to bottom, rgba(28,19,11,.96), rgba(28,19,11,.78) 70%, transparent);
+    backdrop-filter:blur(4px);
+    border-bottom:1px solid var(--rule);
+    font-family:"Fraunces",serif;
+  }
+  nav a{
+    color:var(--cream-dim);text-decoration:none;font-size:.82rem;letter-spacing:.14em;
+    text-transform:uppercase;padding:.3rem .8rem;border:1px solid transparent;border-radius:2px;
+    transition:.25s;
+  }
+  nav a:hover{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+  nav .brand{color:var(--gold);font-style:italic;letter-spacing:.04em;text-transform:none;font-size:.92rem}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    text-align:center;padding:6rem 1.5rem 3rem;position:relative;
+  }
+  .hero .eyebrow{
+    font-family:"Caveat",cursive;font-size:1.9rem;color:var(--amber-glow);
+    transform:rotate(-3deg);display:inline-block;margin-bottom:.4rem;
+  }
+  .hero h1{
+    font-family:"Fraunces",serif;font-weight:600;font-style:italic;
+    font-size:clamp(2.6rem,8vw,6rem);line-height:.98;letter-spacing:-.01em;
+    color:var(--cream);
+    text-shadow:0 1px 0 rgba(0,0,0,.4);
+  }
+  .hero h1 em{color:var(--gold);font-style:normal}
+  .hero .sub{
+    max-width:46ch;margin:1.6rem auto 0;color:var(--cream-dim);font-size:1.05rem;
+  }
+  .hero .meta{
+    margin-top:2rem;font-family:"JetBrains Mono",monospace;font-size:.72rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);
+  }
+  .filet{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2.2rem auto 0;max-width:340px}
+  .filet::before,.filet::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
+  .filet span{font-size:1.1rem;color:var(--gold)}
+
+  /* ---------- COURSE ---------- */
+  .course{padding:3.5rem 1.5rem 4.5rem;max-width:1180px;margin:0 auto;position:relative}
+  .course--breakfast{--course:var(--amber);--course-glow:var(--amber-glow)}
+  .course--lunch{--course:var(--sage);--course-glow:var(--sage-glow)}
+  .course--dinner{--course:var(--ember);--course-glow:var(--ember-glow)}
+
+  .course-head{text-align:center;margin-bottom:3rem;position:relative}
+  .course-head .roman{
+    font-family:"JetBrains Mono",monospace;font-size:.74rem;letter-spacing:.4em;
+    text-transform:uppercase;color:var(--course-glow);opacity:.9;
+  }
+  .course-head h2{
+    font-family:"Fraunces",serif;font-weight:600;font-size:clamp(2rem,5vw,3.4rem);
+    color:var(--cream);margin:.3rem 0 .2rem;
+  }
+  .course-head h2 .ic{filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+  .course-head .room{
+    font-family:"Caveat",cursive;font-size:1.5rem;color:var(--course-glow);
+  }
+  .course-head .pattern{
+    display:inline-block;margin-top:.9rem;font-size:.78rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink);background:var(--course);
+    padding:.32rem .9rem;border-radius:2px;font-family:"Fraunces",serif;font-weight:600;
+  }
+
+  /* ---------- DISH GRID + FLIP CARDS ---------- */
+  .dishes{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.6rem}
+  .dish{
+    perspective:1400px;height:430px;cursor:pointer;
+    opacity:0;transform:translateY(28px);
+  }
+  .dish.in{animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  .flip{
+    position:relative;width:100%;height:100%;
+    transition:transform .8s cubic-bezier(.4,.1,.2,1);
+    transform-style:preserve-3d;
+  }
+  .dish.flipped .flip{transform:rotateY(180deg)}
+
+  .face{
+    position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border:1px solid var(--rule);border-radius:6px;overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%),
+      var(--paper);
+    box-shadow:0 18px 40px -22px rgba(0,0,0,.9), inset 0 0 0 1px rgba(255,255,255,.02);
+    display:flex;flex-direction:column;
+  }
+  .face::after{ /* corner flourish */
+    content:"";position:absolute;top:8px;left:8px;right:8px;bottom:8px;
+    border:1px solid rgba(217,164,65,.10);border-radius:3px;pointer-events:none;
+  }
+
+  /* FRONT */
+  .front{align-items:center;justify-content:center;text-align:center;padding:1.8rem 1.4rem;}
+  .front .lc{
+    position:absolute;top:1rem;left:1.1rem;font-family:"JetBrains Mono",monospace;
+    font-size:.66rem;letter-spacing:.12em;color:var(--cream-dim);
+  }
+  .front .diff{
+    position:absolute;top:1rem;right:1.1rem;font-family:"JetBrains Mono",monospace;
+    font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--course-glow);border:1px solid var(--course);border-radius:99px;padding:.12rem .5rem;
+  }
+  .front .plate{
+    font-size:5.4rem;line-height:1;margin:.3rem 0 .2rem;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,.55));
+    transition:transform .5s;
+  }
+  .dish:hover .front .plate{transform:scale(1.08) rotate(-4deg)}
+  .front .imgname{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:600;font-size:1.5rem;
+    color:var(--course-glow);margin-top:.2rem;
+  }
+  .front .mnemonic{
+    font-family:"Caveat",cursive;font-size:1.45rem;color:var(--cream);margin-top:.6rem;
+    line-height:1.25;max-width:26ch;
+  }
+  .front .title{
+    margin-top:auto;font-size:.86rem;color:var(--cream-dim);font-style:italic;
+  }
+  .front .fliphint{
+    margin-top:.7rem;font-family:"JetBrains Mono",monospace;font-size:.6rem;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.7;
+  }
+
+  /* BACK */
+  .back{transform:rotateY(180deg);padding:1.5rem 1.4rem;justify-content:flex-start;}
+  .back .lc{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.1em;color:var(--course-glow);margin-bottom:.5rem}
+  .back h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;color:var(--cream);line-height:1.15;margin-bottom:.7rem}
+  .back .motion{font-size:.92rem;color:var(--cream-dim);margin-bottom:.8rem}
+  .back .motion b{color:var(--gold-soft);font-weight:600}
+  .back pre{
+    margin-top:auto;background:rgba(0,0,0,.34);border:1px solid rgba(217,164,65,.16);
+    border-radius:4px;padding:.7rem .8rem;overflow:auto;
+  }
+  .back code{font-family:"JetBrains Mono",monospace;font-size:.7rem;line-height:1.5;color:#ecd9b4;white-space:pre}
+  .back .kw{color:var(--ember-glow)}
+  .back .fn{color:var(--sage-glow)}
+  .back .cm{color:#8a7860;font-style:italic}
+
+  /* ---------- PALACE PATH ---------- */
+  .path-intro{max-width:680px;margin:0 auto 1rem;text-align:center;color:var(--cream-dim);font-size:1.02rem}
+  .path-intro b{color:var(--gold-soft)}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;padding:4rem 1.5rem 5rem;border-top:1px solid var(--rule);
+    margin-top:2rem;
+  }
+  footer .sig{font-family:"Caveat",cursive;font-size:2rem;color:var(--gold);transform:rotate(-2deg);display:inline-block}
+  footer p{color:var(--cream-dim);font-size:.82rem;margin-top:.6rem;font-family:"JetBrains Mono",monospace;letter-spacing:.1em}
+  footer .legend{margin-top:1.6rem;display:flex;gap:1.4rem;justify-content:center;flex-wrap:wrap;font-size:.78rem;color:var(--cream-dim)}
+  footer .legend span{display:inline-flex;align-items:center;gap:.4rem}
+  footer .dot{width:.7rem;height:.7rem;border-radius:99px;display:inline-block}
+
+  @media(max-width:560px){.dish{height:460px}.hero{padding-top:4rem}}
+
+  /* ---------- STORY ---------- */
+  .story{
+    position:relative;max-width:760px;margin:2rem auto 0;padding:4rem 2rem 1rem;
+  }
+  .story .roman{
+    text-align:center;font-family:"JetBrains Mono",monospace;font-size:.74rem;
+    letter-spacing:.4em;text-transform:uppercase;color:var(--gold-soft);opacity:.9;
+  }
+  .story h2{
+    text-align:center;font-family:"Fraunces",serif;font-weight:600;font-style:italic;
+    font-size:clamp(1.9rem,5vw,3rem);color:var(--cream);margin:.3rem 0 2rem;
+  }
+  .scroll{
+    position:relative;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.03), transparent 12%, transparent 88%, rgba(0,0,0,.18)),
+      var(--paper);
+    border:1px solid var(--rule);border-radius:6px;
+    padding:2.6rem clamp(1.4rem,5vw,3.2rem);
+    box-shadow:0 24px 60px -34px rgba(0,0,0,.9), inset 0 0 0 1px rgba(255,255,255,.02);
+  }
+  .scroll::before{
+    content:"";position:absolute;top:14px;left:14px;right:14px;bottom:14px;
+    border:1px solid rgba(217,164,65,.10);border-radius:3px;pointer-events:none;
+  }
+  .scroll p{
+    font-size:clamp(1.04rem,2.4vw,1.22rem);line-height:1.85;color:var(--cream);
+    margin-bottom:1.3rem;text-indent:1.4rem;
+  }
+  .scroll p:first-of-type{text-indent:0}
+  .scroll p:first-of-type::first-letter{
+    font-family:"Fraunces",serif;font-weight:600;float:left;font-size:3.6rem;
+    line-height:.8;padding:.1rem .55rem 0 0;color:var(--gold);
+  }
+  .scroll .rm{font-family:"Fraunces",serif;font-style:italic;font-weight:600}
+  .scroll .rm.b{color:var(--amber-glow)}
+  .scroll .rm.l{color:var(--sage-glow)}
+  .scroll .rm.d{color:var(--ember-glow)}
+  .scroll .cue{color:var(--gold-soft);font-style:italic}
+  .scroll .close{
+    text-align:center;text-indent:0;font-family:"Caveat",cursive;
+    font-size:1.7rem;color:var(--gold);margin-top:1.6rem;
+  }
+  /* poem mode overrides */
+  .scroll.poem{text-align:center}
+  .scroll.poem p.st{
+    text-indent:0;margin-bottom:2rem;
+    font-family:"Spectral",serif;font-size:clamp(1.1rem,2.6vw,1.34rem);
+    line-height:2;color:var(--cream);
+  }
+  .scroll.poem p.st:first-of-type::first-letter{
+    font-family:inherit;float:none;font-size:inherit;padding:0;color:inherit;
+  }
+  .scroll.poem .rm{
+    display:block;margin-bottom:.7rem;font-size:1.4rem;
+    font-family:"Caveat",cursive;font-style:normal;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#top">Le Grand Menu de Mémoire</a>
+  <a href="#breakfast">I · Breakfast</a>
+  <a href="#lunch">II · Lunch</a>
+  <a href="#dinner">III · Dinner</a>
+  <a href="#story">The Day</a>
+</nav>
+
+<header class="hero" id="top">
+  <span class="eyebrow">a memory palace, plated in three courses</span>
+  <h1>Walk the<br><em>Kitchen</em> of Recall</h1>
+  <p class="sub">Nine problems you already solved — exaggerated into edible images so the
+  <em style="color:var(--gold-soft);font-style:italic">motion of the solution</em> lodges in memory.
+  Stroll the three rooms. Flip any dish to taste the code.</p>
+  <div class="meta">Service of 2026 · 06 · 28 — 9 dishes — 3 patterns</div>
+  <div class="filet"><span>✦</span></div>
+</header>
+
+<!-- ===================== BREAKFAST ===================== -->
+<section class="course course--breakfast" id="breakfast">
+  <div class="course-head">
+    <div class="roman">Premier Service · Course I</div>
+    <h2><span class="ic">🍳</span> Breakfast</h2>
+    <div class="room">Room one — “The Sunrise Griddle”</div>
+    <div class="pattern">Array Build · pure index simulation</div>
+  </div>
+  <p class="path-intro">You enter the warm griddle room. Nothing clever lives here —
+  <b>you just place elements by index</b>. Three plates steam on the pass.</p>
+  <div class="dishes">
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC1929">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 1929</span><span class="diff">easy</span>
+          <div class="plate">🍳</div>
+          <div class="imgname">Twin Plates</div>
+          <div class="mnemonic">Lay the pancakes — then slap an identical plate right behind them.</div>
+          <div class="title">Concatenation of Array</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 1929 · Concatenation of Array</span>
+          <h3>Clone the plate, end to end</h3>
+          <div class="motion">Motion: <b>nums + nums</b>. No search, no compare — output is two exact copies in order.</div>
+          <pre><code><span class="kw">return</span> nums + nums</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC1470">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 1470</span><span class="diff">easy</span>
+          <div class="plate">🧇</div>
+          <div class="imgname">The Zipper Waffle</div>
+          <div class="mnemonic">Two berry rows zip together — x, y, x, y — down the plate.</div>
+          <div class="title">Shuffle the Array</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 1470 · Shuffle the Array</span>
+          <h3>Index-math interleave</h3>
+          <div class="motion">Even slot from the first half, odd slot from the second: <b>ans[2i], ans[2i+1]</b>.</div>
+          <pre><code>ans = [<span class="kw">0</span>] * (<span class="kw">2</span> * n)
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+    ans[<span class="kw">2</span>*i]   = nums[i]
+    ans[<span class="kw">2</span>*i+<span class="kw">1</span>] = nums[i+n]
+<span class="kw">return</span> ans</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC0485">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 0485</span><span class="diff">easy</span>
+          <div class="plate">🌭</div>
+          <div class="imgname">The Sausage Streak</div>
+          <div class="mnemonic">Count unbroken links — a gap (a 0) snaps the chain. Remember the longest run.</div>
+          <div class="title">Max Consecutive Ones</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 0485 · Max Consecutive Ones</span>
+          <h3>Running counter, reset on 0</h3>
+          <div class="motion">Increment on a 1, <b>reset to 0</b> on a 0, take the max every step.</div>
+          <pre><code>count = ans = <span class="kw">0</span>
+<span class="kw">for</span> n <span class="kw">in</span> nums:
+    count = count+<span class="kw">1</span> <span class="kw">if</span> n==<span class="kw">1</span> <span class="kw">else</span> <span class="kw">0</span>
+    ans = <span class="fn">max</span>(ans, count)
+<span class="kw">return</span> ans</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== LUNCH ===================== -->
+<section class="course course--lunch" id="lunch">
+  <div class="course-head">
+    <div class="roman">Deuxième Service · Course II</div>
+    <h2><span class="ic">🥗</span> Lunch</h2>
+    <div class="room">Room two — “The Pantry of Labels”</div>
+    <div class="pattern">Hash Map Pantry Labels · the range 1..n</div>
+  </div>
+  <p class="path-intro">Down the hall, shelves of labelled jars. A set is the pantry —
+  <b>“have I seen this number before?”</b> Every dish here lives or dies on membership.</p>
+  <div class="dishes">
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC0645">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 0645</span><span class="diff">easy</span>
+          <div class="plate">🫙</div>
+          <div class="imgname">The Double-Stamped Jar</div>
+          <div class="mnemonic">One jar got stamped twice; one shelf sits bare.</div>
+          <div class="title">Set Mismatch</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 0645 · Set Mismatch</span>
+          <h3>Seen-twice vs never-seen</h3>
+          <div class="motion">Second sighting = <b>duplicate</b>; the 1..n label never placed = <b>missing</b>.</div>
+          <pre><code>s = <span class="fn">set</span>()
+<span class="kw">for</span> n <span class="kw">in</span> nums:
+    <span class="kw">if</span> n <span class="kw">in</span> s: dup = n
+    s.add(n)
+miss = <span class="fn">next</span>(i <span class="kw">for</span> i <span class="kw">in</span>
+       <span class="fn">range</span>(<span class="kw">1</span>,<span class="fn">len</span>(nums)+<span class="kw">1</span>) <span class="kw">if</span> i <span class="kw">not in</span> s)
+<span class="kw">return</span> [dup, miss]</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC1365">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 1365</span><span class="diff">easy</span>
+          <div class="plate">🧍</div>
+          <div class="imgname">The Height Lineup</div>
+          <div class="mnemonic">Your rank = how many shorter diners stand ahead of you in line.</div>
+          <div class="title">How Many Numbers Are Smaller</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 1365 · Smaller Than Current</span>
+          <h3>Sort + first-occurrence map</h3>
+          <div class="motion">In sorted order, a value's <b>earliest index</b> equals the count of strictly-smaller values.</div>
+          <pre><code>m = {}
+<span class="kw">for</span> i,v <span class="kw">in</span> <span class="fn">enumerate</span>(<span class="fn">sorted</span>(nums)):
+    m.setdefault(v, i)   <span class="cm"># keep first</span>
+<span class="kw">return</span> [m[n] <span class="kw">for</span> n <span class="kw">in</span> nums]</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC0448">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 0448</span><span class="diff">easy</span>
+          <div class="plate">🪑</div>
+          <div class="imgname">The Empty Seats</div>
+          <div class="mnemonic">Seats numbered 1..n — the ones with no guest are the disappeared.</div>
+          <div class="title">Find All Numbers Disappeared</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 0448 · Numbers Disappeared</span>
+          <h3>Membership scan over 1..n</h3>
+          <div class="motion">Build the guest list, then collect every <b>seat absent</b> from it.</div>
+          <pre><code>seen = <span class="fn">set</span>(nums)
+<span class="kw">return</span> [i <span class="kw">for</span> i <span class="kw">in</span>
+        <span class="fn">range</span>(<span class="kw">1</span>, <span class="fn">len</span>(nums)+<span class="kw">1</span>)
+        <span class="kw">if</span> i <span class="kw">not in</span> seen]</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== DINNER ===================== -->
+<section class="course course--dinner" id="dinner">
+  <div class="course-head">
+    <div class="roman">Troisième Service · Course III</div>
+    <h2><span class="ic">🥞</span> Dinner</h2>
+    <div class="room">Room three — “The Pancake Tower”</div>
+    <div class="pattern">Stack Pancake Stack · last opened, first closed</div>
+  </div>
+  <p class="path-intro">The kitchen fills with steam. Towers of pancakes rise and fall —
+  <b>the top is always the most recent unresolved thing</b>. Push to stack, pop to resolve.</p>
+  <div class="dishes">
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC1441">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 1441</span><span class="diff">medium</span>
+          <div class="plate">🥞</div>
+          <div class="imgname">The Conveyor Tower</div>
+          <div class="mnemonic">Push every number off the conveyor; Pop the ones not on the order ticket.</div>
+          <div class="title">Build an Array With Stack Operations</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 1441 · Build With Stack Ops</span>
+          <h3>Simulate the Push/Pop stream</h3>
+          <div class="motion">Stream 1..n: <b>Push</b> all, <b>Pop</b> the values the target skips. Stop at the last target.</div>
+          <pre><code>ans=[]; i=<span class="kw">0</span>
+<span class="kw">for</span> t <span class="kw">in</span> target:
+    <span class="kw">while</span> i &lt; t-<span class="kw">1</span>:
+        ans += [<span class="fn">"Push"</span>,<span class="fn">"Pop"</span>]; i+=<span class="kw">1</span>
+    ans += [<span class="fn">"Push"</span>]; i+=<span class="kw">1</span>
+<span class="kw">return</span> ans</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC0150">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 0150</span><span class="diff">medium</span>
+          <div class="plate">🍢</div>
+          <div class="imgname">The Operator Skewer</div>
+          <div class="mnemonic">A skewer spears the top two pancakes, cooks them into one, drops it back on top.</div>
+          <div class="title">Evaluate Reverse Polish Notation</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 0150 · Evaluate RPN</span>
+          <h3>Operand stack evaluation</h3>
+          <div class="motion">Push numbers; an operator pops two — <b>lower is the left operand</b>. Divide with <b>int(b/a)</b> (toward zero).</div>
+          <pre><code>st=[]
+<span class="kw">for</span> t <span class="kw">in</span> tokens:
+    <span class="kw">if</span> t <span class="kw">in</span> <span class="fn">"+-*/"</span>:
+        a,b = st.pop(), st.pop()
+        st.append(op(b,a,t))   <span class="cm"># b - a, int(b/a)…</span>
+    <span class="kw">else</span>: st.append(<span class="fn">int</span>(t))
+<span class="kw">return</span> st[<span class="kw">0</span>]</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="dish" tabindex="0" role="button" aria-label="Flip dish LC0636">
+      <div class="flip">
+        <div class="face front">
+          <span class="lc">LC 0636</span><span class="diff">medium</span>
+          <div class="plate">⏲️</div>
+          <div class="imgname">The Nested Pot Timers</div>
+          <div class="mnemonic">Finish a pot → credit its time. Then debit the same time from the pot beneath it.</div>
+          <div class="title">Exclusive Time of Functions</div>
+          <div class="fliphint">tap to plate ▸</div>
+        </div>
+        <div class="face back">
+          <span class="lc">LC 0636 · Exclusive Time</span>
+          <h3>Call-stack, subtract the child</h3>
+          <div class="motion">Push on start. On end: <b>exec = t − start + 1</b> to the top; <b>subtract</b> it from the parent.</div>
+          <pre><code>st=[]; res=[<span class="kw">0</span>]*n
+<span class="kw">for</span> id,s,t <span class="kw">in</span> parsed(logs):
+    <span class="kw">if</span> s==<span class="fn">"start"</span>: st.append([id,t])
+    <span class="kw">else</span>:
+        x,y = st.pop()
+        e = t-y+<span class="kw">1</span>; res[x]+=e
+        <span class="kw">if</span> st: res[st[-<span class="kw">1</span>][<span class="kw">0</span>]] -= e
+<span class="kw">return</span> res</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== STORY ===================== -->
+<section class="story" id="story">
+  <div class="roman">The Back of the Menu</div>
+  <h2>The Day, in One Breath</h2>
+  <div class="scroll poem">
+    <p class="st"><span class="rm b">At the griddle —</span>
+      Cook the plate, then cook it twice,<br>
+      thread two rows like grains of rice,<br>
+      count the streak — a gap will slice.</p>
+
+    <p class="st"><span class="rm l">In the pantry —</span>
+      One jar twice-stamped, one shelf left bare,<br>
+      line up by height — count who's smaller there,<br>
+      read the list; name the seats to spare.</p>
+
+    <p class="st"><span class="rm d">At the tower —</span>
+      Push them all, pop what to drop,<br>
+      a skewer spears two, serves one on top,<br>
+      credit the pot, dock the parent, stop.</p>
+
+    <p class="close">Three warm rooms, nine plates to keep —<br>the day stays sweet, the lesson deep.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="sig">bon appétit — now you’ll remember.</div>
+  <p>9 dishes filed · review due 2026-07-01 · confidence 5/5</p>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--amber)"></i> Breakfast — array build</span>
+    <span><i class="dot" style="background:var(--sage)"></i> Lunch — hash map (1..n)</span>
+    <span><i class="dot" style="background:var(--ember)"></i> Dinner — stack</span>
+  </div>
+</footer>
+
+<script>
+  // flip on click / Enter / Space
+  document.querySelectorAll('.dish').forEach(d=>{
+    const flip=()=>d.classList.toggle('flipped');
+    d.addEventListener('click',flip);
+    d.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}
+    });
+  });
+  // staggered reveal on scroll
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach((en,i)=>{
+      if(en.isIntersecting){
+        const cards=[...en.target.querySelectorAll('.dish')];
+        cards.forEach((c,j)=>{c.style.animationDelay=(j*0.13)+'s';c.classList.add('in');});
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.dishes').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>

@@ -106,6 +106,10 @@ Do not hide mistakes. Label them like pantry jars so you can recognize them fast
 - [ ] Using greedy when future choices depend on hidden state
 - [ ] Sorting by the wrong field
 
+## Bucket Sort Cafeteria Trays
+
+- [ ] Reaching for swap-based partition when "maintain relative order" demands a stable bucketize
+
 ## Mistake note format
 
 Use [[Template - Mistake Note]] when the same mistake appears twice.

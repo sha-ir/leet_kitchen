@@ -4,3 +4,6 @@
 .claude/*
 !.claude/skills/
 docs/superpowers/
+
+# palate-palace eval scratch (regenerable; keep evidence under the skill itself)
+.claude/skills/palate-palace-workspace/

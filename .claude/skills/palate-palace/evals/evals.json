@@ -1,0 +1,56 @@
+{
+  "skill_name": "palate-palace",
+  "evals": [
+    {
+      "id": 0,
+      "name": "memory-palace-explicit-6-dishes",
+      "prompt": "I just grinded through these 6 problems and got them all Accepted, but I always forget how I solved them a week later. Build me a memory palace out of them, grouped as meals, so they actually stick. Here are my solutions:\n\n=== Single Number (LC136, Easy) ===\nGiven a non-empty array where every element appears twice except one, find that one.\nclass Solution:\n    def singleNumber(self, nums):\n        x = 0\n        for n in nums:\n            x ^= n\n        return x\n\n=== Set Mismatch (LC645, Easy) ===\nNumbers 1..n; one value got duplicated over another (one repeats, one missing). Return [dup, missing].\nclass Solution:\n    def findErrorNums(self, nums):\n        s = set(); dup = 0; miss = 0\n        for n in nums:\n            if n in s: dup = n\n            s.add(n)\n        for i in range(1, len(nums)+1):\n            if i not in s: miss = i\n        return [dup, miss]\n\n=== Find All Numbers Disappeared in an Array (LC448, Easy) ===\nnums has n ints each in [1,n]; return all values in [1,n] that do not appear.\nclass Solution:\n    def findDisappearedNumbers(self, nums):\n        seen = set(nums)\n        return [i for i in range(1, len(nums)+1) if i not in seen]\n\n=== Valid Parentheses (LC20, Easy) ===\nGiven a string of brackets, decide if it is validly matched/nested.\nclass Solution:\n    def isValid(self, s):\n        stack = []; pairs = {')':'(', ']':'[', '}':'{'}\n        for c in s:\n            if c in pairs:\n                if not stack or stack.pop() != pairs[c]: return False\n            else:\n                stack.append(c)\n        return not stack\n\n=== Min Stack (LC155, Medium) ===\nStack supporting push/pop/top and getMin in O(1).\nclass MinStack:\n    def __init__(self):\n        self.st = []\n    def push(self, x):\n        m = min(x, self.st[-1][1]) if self.st else x\n        self.st.append((x, m))\n    def pop(self): self.st.pop()\n    def top(self): return self.st[-1][0]\n    def getMin(self): return self.st[-1][1]\n\n=== Evaluate Reverse Polish Notation (LC150, Medium) ===\nEvaluate a postfix arithmetic expression; division truncates toward zero.\nclass Solution:\n    def evalRPN(self, tokens):\n        st = []\n        for t in tokens:\n            if t in '+-*/' and len(t)==1:\n                a, b = st.pop(), st.pop()\n                st.append({'+':b+a,'-':b-a,'*':b*a,'/':int(b/a)}[t])\n            else:\n                st.append(int(t))\n        return st[0]",
+      "assertions": [
+        "All 6 problems get a dish-card markdown file under '03 - Dishes - Problems/' with an LC-numbered filename",
+        "An interactive HTML memory-palace file is produced under '04 - Meal Plans - Practice/'",
+        "The palace renders a flip-card for every one of the 6 problems, each back showing that problem's code",
+        "The palace organizes dishes into at least 2 named, themed meal/room sections (e.g. a hashing room and a stack room)",
+        "A rhyming mnemonic poem with at least 6 dish lines appears, and it is present in BOTH the palace and the meal note",
+        "A meal note links every dish card, embeds the poem, and points to the palace HTML file",
+        "Every dish has a distinct exaggerated edible image name plus a one-line mnemonic, not a literal restatement of the problem",
+        "Stack problems (Valid Parentheses, Min Stack, RPN) map to [[Stack Pancake Stack]] and the set/hash problems map to an appropriate vault recipe in card frontmatter",
+        "Each dish card preserves the user's actual code verbatim (e.g. '^=' in Single Number, 'int(b/a)' in RPN)"
+      ],
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "interview-recall-4-mixed",
+      "prompt": "These four are solved but they never stick and I keep blanking on them in interviews. Help me remember how I solved each one — something visual I can come back to and review. I don't want to re-solve them, I want to lock in the approach.\n\n=== Best Time to Buy and Sell Stock (LC121, Easy) ===\nOne buy + one sell, maximize profit.\nclass Solution:\n    def maxProfit(self, prices):\n        lo = float('inf'); best = 0\n        for p in prices:\n            lo = min(lo, p)\n            best = max(best, p - lo)\n        return best\n\n=== Move Zeroes (LC283, Easy) ===\nMove all zeroes to the end in place, keep order of non-zeroes.\nclass Solution:\n    def moveZeroes(self, nums):\n        i = 0\n        for j in range(len(nums)):\n            if nums[j] != 0:\n                nums[i], nums[j] = nums[j], nums[i]\n                i += 1\n\n=== Reverse String (LC344, Easy) ===\nReverse a list of chars in place.\nclass Solution:\n    def reverseString(self, s):\n        l, r = 0, len(s)-1\n        while l < r:\n            s[l], s[r] = s[r], s[l]\n            l += 1; r -= 1\n\n=== Container With Most Water (LC11, Medium) ===\nTwo lines, find max water area between them.\nclass Solution:\n    def maxArea(self, height):\n        l, r = 0, len(height)-1; best = 0\n        while l < r:\n            best = max(best, (r-l) * min(height[l], height[r]))\n            if height[l] < height[r]: l += 1\n            else: r -= 1\n        return best",
+      "assertions": [
+        "All 4 problems get a dish-card markdown file under '03 - Dishes - Problems/' with an LC-numbered filename",
+        "An interactive HTML memory-palace file is produced under '04 - Meal Plans - Practice/'",
+        "The palace renders a flip-card for every one of the 4 problems, each back showing that problem's code",
+        "The palace organizes dishes into named, themed meal/room sections (the three two-pointer problems should cluster apart from the running-min scan)",
+        "A rhyming mnemonic poem with at least 4 dish lines appears, and it is present in BOTH the palace and the meal note",
+        "A meal note links every dish card, embeds the poem, and points to the palace HTML file",
+        "Every dish has a distinct exaggerated edible image name plus a one-line mnemonic, not a literal restatement of the problem",
+        "The two-pointer problems (Move Zeroes, Reverse String, Container With Most Water) map to [[Two Pointers Sandwich Squeeze]] in card frontmatter",
+        "Each dish card preserves the user's actual code verbatim (e.g. the 'l, r' two-pointer swap, 'best = max(best, (r-l)' in Container)"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "casual-small-batch-3-hashmap",
+      "prompt": "turn these 3 into something i wont forget, like a little themed feast lol. already solved em all:\n\nTwo Sum (LC1): return indices of the two numbers adding to target\nclass Solution:\n    def twoSum(self, nums, target):\n        seen = {}\n        for i, n in enumerate(nums):\n            if target - n in seen:\n                return [seen[target-n], i]\n            seen[n] = i\n\nContains Duplicate (LC217): true if any value appears at least twice\nclass Solution:\n    def containsDuplicate(self, nums):\n        return len(set(nums)) != len(nums)\n\nValid Anagram (LC242): is t an anagram of s\nclass Solution:\n    def isAnagram(self, s, t):\n        from collections import Counter\n        return Counter(s) == Counter(t)",
+      "assertions": [
+        "All 3 problems get a dish-card markdown file under '03 - Dishes - Problems/' with an LC-numbered filename",
+        "An interactive HTML memory-palace file is produced under '04 - Meal Plans - Practice/'",
+        "The palace renders a flip-card for every one of the 3 problems, each back showing that problem's code",
+        "The palace organizes the dishes into at least one named, themed meal/room (a single hash-map room is acceptable for one shared theme)",
+        "A rhyming mnemonic poem with at least 3 dish lines appears, and it is present in BOTH the palace and the meal note",
+        "A meal note links every dish card, embeds the poem, and points to the palace HTML file",
+        "Every dish has a distinct exaggerated edible image name plus a one-line mnemonic, not a literal restatement of the problem",
+        "All three problems map to [[Hash Map Pantry Labels]] in card frontmatter",
+        "Each dish card preserves the user's actual code verbatim (e.g. 'seen[target-n]', 'len(set(nums))', 'Counter(s) == Counter(t)')"
+      ],
+      "files": []
+    }
+  ]
+}

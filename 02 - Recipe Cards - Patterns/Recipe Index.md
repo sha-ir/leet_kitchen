@@ -23,6 +23,7 @@ tags:
 - [[Backtracking Pizza Bar]] — Pizza topping trials
 - [[Intervals Lasagna Sheets]] — Lasagna sheets
 - [[Greedy Chefs Instinct]] — Chef’s instinct
+- [[Bucket Sort Cafeteria Trays]] — Cafeteria trays
 
 ## How to read a recipe card
 
